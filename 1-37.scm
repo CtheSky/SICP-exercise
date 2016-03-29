@@ -1,0 +1,30 @@
+(load "c:\\scheme\\ex\\1.3.3.scm")
+(define golden-section (fixed-point (lambda (x) (+ 1 (/ 1 x))) 1.0))
+
+(define (cont-frac n d k)
+	(if (zero? k)
+		0
+		(/ (n k)
+		   (+ (d k) 
+		      (cont-frac n d (- k 1))))))
+			  
+(define (cont-frac-iter n d k)
+	(define (iter ret count)
+		(if (zero? count)
+			(/ (n 0)
+			   (+ (d 0) ret))
+			(iter (/ (n count)
+					 (+ (d count) ret))
+				  (- count 1))))
+	(iter 0.0 k))
+	
+(define (find-k tolerance)
+	(define (eq x) 1.0)
+	(define (close-enough? guess) 
+		(> tolerance (abs (- 1.0 (* guess golden-section)))))
+	(define (iter count)
+		(let ((value (cont-frac-iter eq eq count)))
+			(if (close-enough? value)
+				count
+				(iter (+ count 1)))))
+	(iter 0))

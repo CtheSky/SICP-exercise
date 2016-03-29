@@ -1,0 +1,7 @@
+(define (same-parity a . b)
+	(define (iter lst ret)
+		(cond ((null? lst) ret)
+			  ((equal? (even? a) (even? (car lst)))
+					(iter (cdr lst) (append ret (list (car lst)))))
+			  (else (iter (cdr lst) ret))))
+	(iter b (list a)))

@@ -1,0 +1,7 @@
+(define (lookup  given-key set-of-recors)
+	(cond ((null? set-of-recors) #f)
+		  (else (let (cur-node (car set-of-recors)))
+					(let ((cur-key (key cur-node)))
+						(cond ((= given-key cur-key) cur-node)
+							  ((< given-key cur-key) (lookup given-key (left-branch set-of-recors)))
+							  ((> given-key cur-key) (lookup given-key (right-branch set-of-recors))))))))

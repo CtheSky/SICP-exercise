@@ -1,0 +1,22 @@
+(load "c:\\scheme\\ex\\2-67.scm")
+(define (encode message tree)
+	(if (null? message)
+		'()
+		(append (encode-symbol (car message) tree)
+				(encode (cdr message) tree))))
+
+(define (element-of-set? x set)
+	(cond ((null? set) #f)
+		  ((equal? x (car set)) #t)
+		  (else (element-of-set? x (cdr set)))))
+		
+				
+(define (encode-symbol symbol tree)
+	(define (tree-walk node ret)
+		(cond ((leaf? node) ret)
+			  ((element-of-set? symbol (symbols (left-branch node)))
+				(tree-walk (left-branch node) (cons 0 ret)))
+			  ((element-of-set? symbol (symbols (right-branch node)))
+				(tree-walk (right-branch node) (cons 1 ret)))
+			  (else (error "symbol not found -- ENCODE-SYMBOL" symbol))))
+	(reverse (tree-walk tree '())))

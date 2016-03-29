@@ -1,0 +1,25 @@
+(define tolerance 0.00000000001)
+(define (close-enough? x y) (> tolerance (abs (- x y))))
+
+(define (search f neg-point pos-point)
+	(let ((mid-point (/ (+ neg-point pos-point) 2)))
+		(if (close-enough? neg-point pos-point)
+			mid-point
+			(let ((test-value (f mid-point)))
+				(cond ((positive? test-value) (search f neg-point mid-point))
+					  ((negative? test-value) (search f mid-point pos-point))
+					  (else mid-point))))))				  
+(define (half-interval-method f a b)
+	(let ((a-value (f a))
+		  (b-value (f b)))
+		(cond ((and (positive? a-value) (negative? b-value)) (search f b a))
+			  ((and (positive? b-value) (negative? a-value)) (search f a b))
+			  (else (error "Values are not of opposite sign" a b)))))
+			  
+(define (fixed-point f first-guess)
+	(define (try guess)
+		(let ((next (f guess)))
+			(if (close-enough? guess next)
+				guess
+				(try next))))
+	(try first-guess))
