@@ -17,7 +17,7 @@
 (define (cesaro-test)
   (= (gcd (rand) (rand)) 1))
 
-(define (mote-cario trials experiment)
+(define (mote-carlo trials experiment)
   (define (iter remained passed)
     (cond ((= remained 0)
 	   (/ passed trials))
