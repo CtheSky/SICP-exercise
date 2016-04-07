@@ -59,7 +59,7 @@
     (and-gate d e s)
     'ok))
 
-(define (full-adder a b c-in sumc-out)
+(define (full-adder a b c-in sum c-out)
   (let ((s (make-wire))
 	(c1 (make-wire))
 	(c2 (make-wire)))
