@@ -14,7 +14,7 @@
 			  clauses)))
 	      ((cond-recipient-clause? first)
 	       (make-if (cond-predicate first)
-			(list ;;use list to make it run during "complilation" phase
+			(list ;;use list to make it run during "compilation" phase
 			 (cond-recipient clause)
 			 (cond-predicaet first))
 			(expand-clauses rest)))
