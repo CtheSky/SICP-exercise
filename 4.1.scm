@@ -57,7 +57,7 @@
 	      (eval-sequence (rest-exps exps) env))))
 
 (define (eval-assignment exp env)
-  (set-variable-value! (assginment-variable exp)
+  (set-variable-value! (assignment-variable exp)
 		       (eval (assignment-value exp) env)
 		       env)
   'ok)
@@ -77,6 +77,7 @@
 
 (define (quoted? exp) (tagged-list? exp 'quote))
 (define (text-of-quotation exp) (cadr exp))
+(define (make-quoted exp) (list 'quote exp))
 
 (define (tagged-list? exp tag)
   (and (pair? exp) 
@@ -208,13 +209,13 @@
 		  (lambda-body exp)
 		  env))
 (define (eval-begin exp env)
-  (eval-sequence (bengin-actions exp) env))
+  (eval-sequence (begin-actions exp) env))
 (define (eval-cond exp env)
   (eval (cond->if exp) env))
 
 ;;put all eval functions
-(put-op 'quoted eval-quoted)
-(put-op 'assignment eval-assignment)
+(put-op 'quote eval-quoted)
+(put-op 'set! eval-assignment)
 (put-op 'define eval-definition)
 (put-op 'if eval-if)
 (put-op 'and eval-and)
@@ -232,8 +233,31 @@
   (eq? x false))
 
 ;;procedure
+(define (scan-out-defines body)
+  (define (scan-iter var-seq set-seq rest-body)
+    (let ((first-def (car rest-body)))
+      (cond ((definition? first-def)
+	     (scan-iter (cons (list (definition-variable first-def)
+				    (make-quoted '*unassigned*))
+			      var-seq)
+			(cons (list 'set! 
+				    (definition-variable first-def)
+				    (definition-value first-def))
+			      set-seq)
+			(cdr rest-body)))
+	    (else
+	     (list (make-let var-seq
+			     (make-begin (append set-seq rest-body))))))))
+  (if (definition? (car body))
+      (scan-iter '() '() body)
+      body))
+
 (define (make-procedure parameters body env)
-  (list 'procedure parameters body env))
+  (list 'procedure 
+	parameters
+        (scan-out-defines body)
+	env))
+
 (define (compound-procedure? p)
   (tagged-list? p 'procedure))
 (define (procedure-parameters p) (cadr p))
@@ -265,7 +289,9 @@
       (cond ((null? vars)
 	     (env-loop (enclosing-envrionment env)))
 	    ((eq? var (car vars))
-	     (car vaLs))
+	     (if (eq? (car vals) '*unassigned*)
+		 (error "Try to use an unassigned variable -- LOOKUP" var)
+		 (car vals)))
 	    (else (scan (cdr vars) (cdr vals)))))
     (if (eq? env the-empty-environment)
 	(error "Unbound variable" env)
