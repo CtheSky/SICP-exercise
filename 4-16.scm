@@ -1,0 +1,37 @@
+;;add unassigned check in lookup
+(define (lookup-variable-value var env)
+  (define (env-loop env)
+    (define (scan vars vals)
+      (cond ((null? vars)
+	     (env-loop (enclosing-envrionment env)))
+	    ((eq? var (car vars))
+	     (if (eq? (car vals) '*unassigned*)
+		 (error "Try to use an unassigned variable -- LOOKUP" var)
+		 (car vals)))
+	    (else (scan (cdr vars) (cdr vals)))))
+    (if (eq? env the-empty-environment)
+	(error "Unbound variable" env)
+	(let ((frame (first-frame env)))
+	  (scan (frame-variables frame)
+		(frame-values frame)))))
+  (env-loop env))
+
+;;take a procedure body and turn it into no-internal-define form
+(define (scan-out-defines body)
+  (define (scan-iter var-seq set-seq rest-body)
+    (let ((first-def (car rest-body)))
+      (cond ((definition? first-def)
+	     (scan-iter (cons (list (definition-variable first-def)
+				    (make-quoted '*unassigned*))
+			      var-seq)
+			(cons (list 'set! 
+				    (definition-variable first-def)
+				    (definition-value first-def))
+			      set-seq)
+			(cdr rest-body)))
+	    (else
+	     (list (make-let var-seq
+			     (make-begin (append set-seq rest-body))))))))
+  (if (definition? (car body))
+      (scan-iter '() '() body)
+      body))
