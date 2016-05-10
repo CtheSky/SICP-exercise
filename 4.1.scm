@@ -200,6 +200,25 @@
   (make-nested-lets (cadr exp) (caddr exp)))
 (define (eval-let* exp env)
   (eval (let*->nested-lets exp) env))
+;;letrec
+(define (letrec->let exp)
+  (let ((init-pairs (cadr exp))
+	(body (let-body exp)))
+    (make-let
+     (map (lambda (init-pair)
+	    (list (car init-pair)
+		  (make-quoted '*unassigned*)))
+	  init-pairs)
+     (make-begin
+      (append
+       (map (lambda (init-pair)
+	      (list 'set! 
+		    (car init-pair)
+		    (cadr init-pair)))
+	    init-pairs)
+       body)))))
+(define (eval-letrec exp env)
+  (eval (letrec->let exp) env))
 
 ;;make a transform from 1-agru to 2-argu
 (define (eval-quoted exp env)
@@ -225,6 +244,7 @@
 (put-op 'cond eval-cond)
 (put-op 'let eval-let)
 (put-op 'let* eval-let*)
+(put-op 'letrec eval-letrec)
 
 ;;predicate
 (define (true? x)
