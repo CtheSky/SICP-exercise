@@ -175,7 +175,7 @@
 		     (sequence->exp (cond-actions first))
 		     (expand-clauses rest))))))
 ;;let
-(define (let? exp) (taggged-list? exp 'let))
+(define (let? exp) (tagged-list? exp 'let))
 (define (let-body exp) (cddr exp))
 (define (let-vars exp)
   (map car (cadr exp)))
