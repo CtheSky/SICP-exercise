@@ -81,7 +81,7 @@
 
 (define (eval-sequence exps env)
   (cond ((last-exp? exps) (eval (first-exp exps) env))
-	(else (eval (first-exp exps) env)
+	(else (actual-value (first-exp exps) env)
 	      (eval-sequence (rest-exps exps) env))))
 
 (define (eval-assignment exp env)
@@ -311,6 +311,9 @@
 	(list '- -)
 	(list '* *)
 	(list '/ /)
+	(list 'list list)
+	(list 'newline newline)
+	(list 'display display)
 	))
 (define (primitive-procedure-names)
   (map car primitive-procedures))
@@ -327,7 +330,7 @@
 (define (driver-loop)
   (prompt-for-input input-prompt)
   (let ((input (read)))
-    (let ((output (eval input the-global-environment)))
+    (let ((output (actual-value input the-global-environment)))
       (announce-output output-prompt)
       (user-print output)))
   (driver-loop))
