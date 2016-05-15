@@ -1,5 +1,8 @@
 ;;eval and apply
 (define (eval exp env)
+  (newline)
+  (display "eval:")
+  (display exp)
   (cond ((self-evaluating? exp) exp)
 	((variable? exp) (lookup-variable-value exp env))
 	((quoted? exp) (eval-quoted exp env))
@@ -97,7 +100,10 @@
   'ok)
 
 (define (eval-quoted exp env)
-  (text-of-quotation exp))
+  (let ((quoted-operand (text-of-quotation exp)))
+    (if (pair? quoted-operand)
+	(eval (make-lazy-list quoted-operand) env)
+	quoted-operand)))
 
 (define (eval-lambda exp env)
   (make-procedure (lambda-parameters exp)
@@ -109,6 +115,12 @@
 
 (define (eval-cond exp env)
   (eval (cond->if exp) env))
+
+;;tagged-list for dispathcing
+(define (tagged-list? exp tag)
+  (and (pair? exp) 
+       (eq? (car exp) tag)))
+
 ;;self-evaluate
 (define (self-evaluating? exp)
   (cond ((number? exp) true)
@@ -120,10 +132,12 @@
 (define (quoted? exp) (tagged-list? exp 'quote))
 (define (text-of-quotation exp) (cadr exp))
 (define (make-quoted exp) (list 'quote exp))
-
-(define (tagged-list? exp tag)
-  (and (pair? exp) 
-       (eq? (car exp) tag)))
+(define (make-lazy-list items)
+  (if (null? items)
+      '()
+      (list 'cons
+	    (make-quoted (car items))
+	    (make-lazy-list (cdr items)))))
 ;;assignment
 (define (assignment? exp) (tagged-list? exp 'set!))
 (define (assignment-variable exp) (cadr exp))
@@ -194,7 +208,7 @@
 		       clauses))
 	    (make-if (cond-predicate first)
 		     (sequence->exp (cond-actions first))
-		     (expand-clauses rest))))))
+		     (expand-clause rest))))))
 ;;let
 (define (let? exp) (tagged-list? exp 'let))
 (define (let-body exp) (cddr exp))
@@ -299,10 +313,7 @@
   (tagged-list? proc 'primitive))
 (define (primitive-implementation proc) (cadr proc))
 (define primitive-procedures
-  (list (list 'car car)
-	(list 'cdr cdr)
-	(list 'cons cons)
-	(list 'eq? eq?)
+  (list	(list 'eq? eq?)
 	(list 'null? null?)
 	(list '= =)
 	(list '> >)
@@ -347,6 +358,50 @@
       (display object)))
 
 (define the-global-environment (setup-envrionment))
+
+;;define lazy list-related procedure in driver loop
+;;cons
+(actual-value 
+ '(define (cons x y) (lambda (m) (m x y)))
+ the-global-environment)
+;;car
+(actual-value
+ '(define (car z) (z (lambda (p q) p)))
+ the-global-environment)
+;;cdr
+(actual-value 
+ '(define (cdr z) (z (lambda (p q) q)))
+ the-global-environment)
+;;list-ref
+(actual-value
+ '(define (list-ref items n)
+    (if (= n 0)
+	(car items)
+	(list-ref (cdr items) (- n 1))))
+ the-global-environment)
+;;map
+(actual-value
+ '(define (map proc items)
+    (if (null? items)
+	'()
+	(cons (proc (car items))
+	      (map proc (cdr items)))))
+ the-global-environment)
+;;scale-list
+(actual-value
+ '(define (scale-list items factor)
+    (map (lambda (x) (* x factor))
+	 items))
+ the-global-environment)
+;;add-lists
+(actual-value
+ '(define (add-lists list1 list2)
+    (cond ((null? list1) list2)
+	  ((null? list2) list1)
+	  (else (cons (+ (car list1) (car list2))
+		      (add-lists (cdr list1) (cdr list2))))))
+ the-global-environment)
+
 (driver-loop)
 
 
