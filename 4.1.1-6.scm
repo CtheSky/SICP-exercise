@@ -173,7 +173,7 @@
 		       clauses))
 	    (make-if (cond-predicate first)
 		     (sequence->exp (cond-actions first))
-		     (expand-clauses rest))))))
+		     (expand-clause rest))))))
 ;;let
 (define (let? exp) (tagged-list? exp 'let))
 (define (let-body exp) (cddr exp))
