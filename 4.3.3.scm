@@ -11,6 +11,7 @@
 	((permanent-assignment? exp) (analyze-permanent-assignment exp))
 	((definition? exp) (analyze-definition exp))
 	((if? exp) (analyze-if exp))
+	((if-fall? exp) (analyze-if-fall exp))
 	((lambda? exp) (analyze-lambda exp))
 	((let? exp) (analyze (let->combination exp)))
 	((begin? exp) (analyze-sequence (begin-actions exp)))
@@ -53,6 +54,18 @@
 		   (cproc env succeed fail2)
 		   (aproc env succeed fail2)))
 	     fail))))
+
+(define (analyze-if-fall exp)
+  (let ((pproc (analyze (if-predicate exp)))
+	(cproc (analyze (if-consequent exp))))
+    (lambda (env succeed fail)
+      (pproc env
+	     (lambda (pred-value fail2)
+	       (if (true? pred-value)
+		   pred-value
+		   (fail)))
+	     (lambda ()
+	       (cproc env succeed fail))))))
 
 (define (analyze-sequence exps)
   (define (sequentially proc1 proc2)
@@ -228,7 +241,7 @@
 (define (lambda-body exp) (cddr exp))
 (define (make-lambda parameters body)
   (cons 'lambda (cons parameters body)))
-
+;;if
 (define (if? exp) (tagged-list? exp 'if))
 (define (if-predicate exp) (cadr exp))
 (define (if-consequent exp) (caddr exp))
@@ -238,6 +251,8 @@
       'false))
 (define (make-if predicate consequent alternative)
   (list 'if predicate consequent alternative))
+;;if-fall
+(define (if-fall? exp) (tagged-list? exp 'if-fall))
 ;;let
 (define (let? exp) (tagged-list? exp 'let))
 (define (let-body exp) (cddr exp))
