@@ -8,6 +8,7 @@
 	((quoted? exp) (analyze-quoted exp))
 	((variable? exp) (analyze-variable exp))
 	((assignment? exp) (analyze-assignment exp))
+	((permanent-assignment? exp) (analyze-permanent-assignment exp))
 	((definition? exp) (analyze-definition exp))
 	((if? exp) (analyze-if exp))
 	((lambda? exp) (analyze-lambda exp))
@@ -18,12 +19,10 @@
 	 (analyze-application exp))
 	(else
 	 (error "Unknown expression type -- ANALYZE" exp))))
-
 ;;maintain a ref to scheme-apply
 (define apply-in-underlying-scheme apply)
 
 ;;internal methods of analyze
-
 (define (analyze-self-evaluating exp)
   (lambda (env succeed fail)
     (succeed exp fail)))
@@ -44,7 +43,7 @@
       (succeed (make-procedure vars bproc env) fail))))
 
 (define (analyze-if exp)
-  (let ((pproc (analyze (if-predicate exp)))
+  (let ((proc (analyze (if-predicate exp)))
 	(cproc (analyze (if-consequent exp)))
 	(aproc (analyze (if-alternative exp))))
     (lambda (env succeed fail)
@@ -93,7 +92,18 @@
 			  (lambda ()
 			    (set-variable-value! var old-value env)
 			    (fail2)))))
-	     fail1))))
+	     fail))))
+
+(define (analyze-permanent-assignment exp)
+  (let ((var (assignment-variable exp))
+	(vproc (analyze (assignment-value exp))))
+    (lambda (env succeed fail)
+      (vproc env
+	     (lambda (val fail2)
+	       (set-variable-value! var val env)
+	       (succeed 'ok
+			(lambda () (fail2))))
+	     fail))))
 
 (define (analyze-application exp)
   (let ((fproc (analyze (operator exp)))
@@ -199,6 +209,8 @@
 (define (assignment? exp) (tagged-list? exp 'set!))
 (define (assignment-variable exp) (cadr exp))
 (define (assignment-value exp) (caddr exp))
+;;permanent-assignment
+(define (permanent-assignment? exp) (tagged-list? exp 'permanent-set!))
 ;;definition
 (define (definition? exp) (tagged-list? exp 'define))
 (define (definition-variable exp)
