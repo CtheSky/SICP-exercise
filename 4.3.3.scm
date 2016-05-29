@@ -2,8 +2,10 @@
   ((analyze exp) env succeed fail))
 
 (define (analyze exp)
+  (newline) (display "analyze") (display exp)
   (cond ((amb? exp) (analyze-amb exp))
 	((ramb? exp) (analyze-ramb exp))
+	((require? exp) (analyze-require exp))
 	((self-evaluating? exp)(analyze-self-evaluating exp))
 	((quoted? exp) (analyze-quoted exp))
 	((variable? exp) (analyze-variable exp))
@@ -70,9 +72,9 @@
 (define (analyze-sequence exps)
   (define (sequentially proc1 proc2)
     (lambda (env succeed fail)
-      (a env
+      (proc1 env
 	 (lambda (a-value fail2)
-	   (b env succeed fail2))
+	   (proc2 env succeed fail2))
 	 fail)))
   (define (loop first-proc rest-procs)
     (if (null? rest-procs)
@@ -181,7 +183,6 @@
 	     succeed
 	     (lambda () (try-next (cdr choices))))))
       (try-next cprocs))))
-
 (define (shift-list items)
   (if (null? items)
       '()
@@ -197,6 +198,16 @@
 	(else (cons (car items)
 		    (remove x (cdr items))))))
 
+(define (analyze-require exp)
+  (let ((pproc (analyze (require-predicate exp))))
+    (lambda (env succeed fail)
+      (pproc env
+	     (lambda (pred-value fail2)
+	       (if (not (true? pred-value))
+		   (fail)
+		   (succeed 'ok fail2)))
+	     fail))))
+
 ;;tagged-list
 (define (tagged-list? exp tag)
   (and (pair? exp) 
@@ -207,6 +218,9 @@
 ;;ramb
 (define (ramb? exp) (tagged-list? exp 'ramb))
 (define (ramb-choices exp) (shift-list (cdr exp)))
+;;require
+(define (require? exp) (tagged-list? exp 'require))
+(define (require-predicate exp) (cadr exp))
 ;;self-evaluate
 (define (self-evaluating? exp)
   (cond ((number? exp) true)
