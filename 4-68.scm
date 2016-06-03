@@ -1,0 +1,5 @@
+(rule (reverse () ()))
+(rule (reverse ?x ?y)
+      (and (append-to-form (?car) ?cdr ?x)
+	   (append-to-form ?reverse-cdr (?car) ?y)
+	   (reverse ?cdr ?reverse-cdr)))
