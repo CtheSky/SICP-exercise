@@ -39,7 +39,7 @@
 	(if (null? stack)
 	    (error "Empty stack for thie register: POP")
 	    (let ((top (cadr stack)))
-	      (set! stack (cddr stack))
+	      (set-cdr! stack (cddr stack))
 	      top))))
     (define (initialize)
       (set! stack-list '())
