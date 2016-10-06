@@ -1,4 +1,4 @@
-(load "c:\\scheme\\ex\\3.5.3.scm")
+(load "3.5.3.scm")
 
 (define (full-pairs s t)
   (cons-stream (list (stream-car s) (stream-car t))

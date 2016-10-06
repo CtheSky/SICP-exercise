@@ -1,4 +1,4 @@
-(load "c:\\scheme\\ex\\3.5.2.scm")
+(load "3.5.2.scm")
 
 (define (integrate-series argu-stream)
   (mul-streams argu-stream

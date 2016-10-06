@@ -1,4 +1,4 @@
-(load "c:\\scheme\\ex\\3.5.1.scm")
+(load "3.5.1.scm")
 
 (define (stream-map proc . argstreams)
   (if (null? (car argstreams))

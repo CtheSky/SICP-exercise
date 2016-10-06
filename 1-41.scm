@@ -1,4 +1,4 @@
-(load "c:\\scheme\\ex\\basic.scm")
+(load "basic.scm")
 
 (define (double f)
 	(lambda (x) (f (f x))))

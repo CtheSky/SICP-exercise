@@ -1,4 +1,4 @@
-(load "c:\\scheme\\ex\\2.3.2.scm")
+(load "2.3.2.scm")
 
 (define (make-exponentiation base exponent)
 	(cond ((=number? exponent 0) 1)

@@ -1,4 +1,4 @@
-(load "c:\\scheme\\ex\\3.3.2.scm")
+(load "3.3.2.scm")
 ;;implement of basic components and, or, not, half-adder, full-adder
 (define (logical-not s)
   (cond ((= s 0) 1)

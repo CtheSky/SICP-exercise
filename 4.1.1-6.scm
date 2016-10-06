@@ -1,4 +1,4 @@
-(load "c:\\scheme\\ex\\make-table.scm")
+(load "make-table.scm")
 
 ;;provide table-operation
 (define operation-table (make-table))

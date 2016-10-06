@@ -1,5 +1,5 @@
-(load "c:\\scheme\\ex\\1.3.4.scm")
-(load "c:\\scheme\\ex\\1-43.scm")
+(load "1.3.4.scm")
+(load "1-43.scm")
 
 (define (fixed-point-check-convergence f first-guess)
 	(define (try guess count)

@@ -1,4 +1,4 @@
-(load "c:\\scheme\\ex\\1-37.scm")
+(load "1-37.scm")
 
 (define (n k) 1.0)
 (define (d k)

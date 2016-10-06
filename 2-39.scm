@@ -1,5 +1,5 @@
-(load "c:\\scheme\\ex\\2.2.3.scm")
-(load "c:\\scheme\\ex\\2-38.scm")
+(load "2.2.3.scm")
+(load "2-38.scm")
 
 (define fold-right accumulate)
 

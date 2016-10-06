@@ -1,4 +1,4 @@
-(load "c:\\scheme\\ex\\2.1.4.scm")
+(load "2.1.4.scm")
 
 (define (make-interval a b) (cons a b))
 (define (upper-bound interval) 

@@ -1,4 +1,4 @@
-(load "c:\\scheme\\ex\\basic.scm")
+(load "basic.scm")
 (define (square-list items)
 	(define (iter things answer)
 		(if (null? things)

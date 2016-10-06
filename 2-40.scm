@@ -1,4 +1,4 @@
-(load "c:\\scheme\\ex\\2.2.3.scm")
+(load "2.2.3.scm")
 
 (define (unique-pairs n)
 	(flatmap (lambda (i)

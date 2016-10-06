@@ -1,4 +1,4 @@
-(load "c:\\scheme\\ex\\2-63.scm")
+(load "2-63.scm")
 (define (list->tree elements)
 	(car (partial-tree elements (length elements))))
 

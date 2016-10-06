@@ -1,4 +1,4 @@
-(load "c:\\scheme\\ex\\2-64.scm")
+(load "2-64.scm")
 
 (define (element-of-set? x set)
 	(cond ((null? set) #f)

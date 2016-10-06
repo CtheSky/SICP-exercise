@@ -1,4 +1,4 @@
-(load "c:\\scheme\\ex\\2-07")
+(load "2-07")
 
 (define (sub-interval x y)
 	(make-interval (- (lower-bound x) (upper-bound y))

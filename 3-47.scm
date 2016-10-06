@@ -1,4 +1,4 @@
-(load "c:\\scheme\\ex\\3.4.scm")
+(load "3.4.scm")
 
 (define (make-semaphore max)
   (let ((count max)

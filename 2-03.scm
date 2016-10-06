@@ -1,4 +1,4 @@
-(load "c:\\scheme\\ex\\2-02.scm")
+(load "2-02.scm")
 
 (define (make-rectangle x1 x2 y1 y2)
 	(cons (make-point x1 y1) (make-point x2 y2)))

@@ -1,4 +1,4 @@
-(load "c:\\scheme\\ex\\3.3.5.scm")
+(load "3.3.5.scm")
 
 (define (c+ a b)
   (let ((sum (make-connector)))

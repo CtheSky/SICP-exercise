@@ -1,4 +1,4 @@
-(load "c:\\scheme\\ex\\basic.scm")
+(load "basic.scm")
 
 (define (make-point x y) (cons x y))
 (define (x-point point) (car point))

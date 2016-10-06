@@ -1,4 +1,4 @@
-(load "c:\\scheme\\ex\\2.2.3.scm")
+(load "2.2.3.scm")
 
 (define (horner-eval x coefficient-sequence)
 	(accumulate (lambda (this-coeff higher-terms) (+ this-coeff (* x higher-terms)))

@@ -1,4 +1,4 @@
-(load "c:\\scheme\\ex\\basic.scm")
+(load "basic.scm")
 
 (define empty-board '())
 (define (row position) (car position))

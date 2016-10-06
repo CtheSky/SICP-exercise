@@ -1,4 +1,4 @@
-(load "c:\\scheme\\ex\\2.5.1.scm")
+(load "2.5.1.scm")
 (define (attach-tag type-tag contents)
 	(if (number? contents)
 		(cons 'scheme-number contents)

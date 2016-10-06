@@ -1,4 +1,4 @@
-(load "c:\\scheme\\ex\\3.5.2.scm")
+(load "3.5.2.scm")
 
 (define (integral delayed-integrand initial-value dt)
   (define int

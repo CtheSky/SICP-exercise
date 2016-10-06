@@ -1,5 +1,5 @@
-(load "c:\\scheme\\ex\\1.3.3.scm")
-(load "c:\\scheme\\ex\\basic.scm")
+(load "1.3.3.scm")
+(load "basic.scm")
 
 (define (average-damp f)
 	(lambda (x) (average x (f x))))

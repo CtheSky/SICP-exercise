@@ -1,4 +1,4 @@
-(load "c:\\scheme\\ex\\basic.scm")
+(load "basic.scm")
 
 (define (make-rat x y) 
 	(let ((g (gcd x y)))

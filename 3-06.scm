@@ -1,4 +1,4 @@
-(load "c:\\scheme\\ex\\3.1.2.scm")
+(load "3.1.2.scm")
 
 (define rand
   (let ((x random-init))

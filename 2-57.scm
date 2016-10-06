@@ -1,4 +1,4 @@
-(load "c:\\scheme\\ex\\2-56.scm")
+(load "2-56.scm")
 
 (define (sum? x)
 	(and (pair? x) (eq? '+ (car x))))

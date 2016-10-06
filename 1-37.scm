@@ -1,4 +1,4 @@
-(load "c:\\scheme\\ex\\1.3.3.scm")
+(load "1.3.3.scm")
 (define golden-section (fixed-point (lambda (x) (+ 1 (/ 1 x))) 1.0))
 
 (define (cont-frac n d k)

@@ -1,4 +1,4 @@
-(load "c:\\scheme\\ex\\3.3.5.scm")
+(load "3.3.5.scm")
 
 (define (squarer a b)
   (define (process-new-value)

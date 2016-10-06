@@ -1,4 +1,4 @@
-(load "c:\\scheme\\ex\\3.3.4.scm")
+(load "3.3.4.scm")
 
 ;;or-gate could implemented by and-gate & inverter
 ;;a + b -> (a'b')'

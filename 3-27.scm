@@ -1,4 +1,4 @@
-(load "c:\\scheme\\ex\\3.3.3.scm")
+(load "3.3.3.scm")
 
 (define (memorize f)
   (let ((table (make-table-1d)))

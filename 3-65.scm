@@ -1,4 +1,4 @@
-(load "c:\\scheme\\ex\\3.5.3.scm")
+(load "3.5.3.scm")
 
 (define (ln2-summands n)
   (cons-stream (/ 1.0 n)

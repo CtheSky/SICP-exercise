@@ -1,4 +1,4 @@
-(load "c:\\scheme\\ex\\make-table.scm")
+(load "make-table.scm")
 
 (define operation-table (make-table))
 (define get (operation-table 'lookup-proc))

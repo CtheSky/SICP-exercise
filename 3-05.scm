@@ -1,5 +1,5 @@
-(load "c:\\scheme\\ex\\3.1.2.scm")
-(load "c:\\scheme\\ex\\basic.scm")
+(load "3.1.2.scm")
+(load "basic.scm")
 
 (define (random-in-range low high)
   (let ((range (- high low)))

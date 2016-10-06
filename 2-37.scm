@@ -1,4 +1,4 @@
-(load "c:\\scheme\\ex\\2-36.scm")
+(load "2-36.scm")
 
 (define (dot-product v w)
 	(accumulate + 0 (map * v w)))

@@ -1,4 +1,4 @@
-(load "c:\\scheme\\ex\\3-61.scm")
+(load "3-61.scm")
 
 (define (div-series num denom)
   (let ((denom-const (stream-car denom)))

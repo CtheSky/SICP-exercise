@@ -1,4 +1,4 @@
-(load "c:\\scheme\\ex\\1-37.scm")
+(load "1-37.scm")
 
 (define (square x) (* x x))
 (define (tan-cf x k)

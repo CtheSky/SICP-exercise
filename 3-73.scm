@@ -1,4 +1,4 @@
-(load "c:\\scheme\\ex\\3.5.3.scm")
+(load "3.5.3.scm")
 
 (define (RC= R C dt)
   (lambda (v0 i-stream)

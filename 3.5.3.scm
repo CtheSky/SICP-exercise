@@ -1,5 +1,5 @@
-(load "c:\\scheme\\ex\\3-55.scm")
-(load "c:\\scheme\\ex\\3.5.2.scm")
+(load "3-55.scm")
+(load "3.5.2.scm")
 
 (define (average a b)
   (/ (+ a b) 2))

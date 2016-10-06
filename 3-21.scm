@@ -1,4 +1,4 @@
-(load "c:\\scheme\\ex\\3.3.2.scm")
+(load "3.3.2.scm")
 
 (define (print-queue queue)
   (define (print-iter front-ptr rear-ptr)

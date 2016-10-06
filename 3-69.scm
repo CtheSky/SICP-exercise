@@ -1,4 +1,4 @@
-(load "c:\\scheme\\ex\\3.5.3.scm")
+(load "3.5.3.scm")
 
 (define (triples s t u)
   (cons-stream (list (stream-car s)

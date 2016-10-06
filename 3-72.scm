@@ -1,4 +1,4 @@
-(load "c:\\scheme\\ex\\3-70.scm")
+(load "3-70.scm")
 
 (define square-sum
   (lambda (pair)

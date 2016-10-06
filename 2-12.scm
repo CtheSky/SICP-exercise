@@ -1,4 +1,4 @@
-(load "c:\\scheme\\ex\\2-10.scm")
+(load "2-10.scm")
 
 (define (make-center-percent c p)
 	(let ((w (* c (abs p))))

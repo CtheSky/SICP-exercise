@@ -1,5 +1,5 @@
-(load "c:\\scheme\\ex\\2-69.scm")
-(load "c:\\scheme\\ex\\2-68.scm")
+(load "2-69.scm")
+(load "2-68.scm")
 
 (define song-pairs '((a 2) (na 16) (boom 1) (sha 3) (get 2) (job 2) (yip 9) (wah 1)))
 

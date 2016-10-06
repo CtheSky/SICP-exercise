@@ -1,4 +1,4 @@
-(load "c:\\scheme\\ex\\3.3.4.scm")
+(load "3.3.4.scm")
 
 (define (ripple-carry-adder a-list b-list s-list c)
   (define (iter a-list b-list s-list)

@@ -1,4 +1,4 @@
-(load "c:\\scheme\\ex\\2-67.scm")
+(load "2-67.scm")
 (define (encode message tree)
 	(if (null? message)
 		'()

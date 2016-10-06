@@ -1,4 +1,4 @@
-(load "c:\\scheme\\ex\\3.4.scm")
+(load "3.4.scm")
 
 (define (make-account balance account-no)
   (define (withdraw amount)

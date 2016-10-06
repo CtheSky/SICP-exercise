@@ -1,4 +1,4 @@
-(load "c:\\scheme\\ex\\3.5.2.scm")
+(load "3.5.2.scm")
 
 (define (merge s1 s2)
   (cond ((stream-null? s1) s2)

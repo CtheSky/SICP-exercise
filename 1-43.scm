@@ -1,4 +1,4 @@
-(load "c:\\scheme\\ex\\1-42.scm")
+(load "1-42.scm")
 
 (define (repeated f n)
 	(define (iter g count)

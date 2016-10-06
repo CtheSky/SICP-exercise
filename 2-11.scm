@@ -1,4 +1,4 @@
-(load "c:\\scheme\\ex\\2-10.scm")
+(load "2-10.scm")
 
 (define (mul-interval x y)
 	(let ((u1 (upper-bound x))

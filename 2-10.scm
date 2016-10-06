@@ -1,4 +1,4 @@
-(load "c:\\scheme\\ex\\2-08.scm")
+(load "2-08.scm")
 
 (define (div-interval x y)
 	(let ((u-y (upper-bound y))

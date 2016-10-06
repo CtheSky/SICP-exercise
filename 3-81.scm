@@ -1,4 +1,4 @@
-(load "c:\\scheme\\ex\\3.5.5.scm")
+(load "3.5.5.scm")
 
 (define (random-from-command command-stream)
   (define random-number

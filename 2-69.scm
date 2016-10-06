@@ -1,4 +1,4 @@
-(load "c:\\scheme\\ex\\2.3.4.scm")
+(load "2.3.4.scm")
 
 (define (generate-huffman-tree pairs)
 	(successive-merge (make-leaf-set pairs)))

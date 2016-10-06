@@ -1,4 +1,4 @@
-(load "c:\\scheme\\ex\\3-60.scm")
+(load "3-60.scm")
 
 (define (invert-after1-series s)
   (cons-stream 1

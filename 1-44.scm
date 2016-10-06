@@ -1,4 +1,4 @@
-(load "c:\\scheme\\ex\\1-43.scm")
+(load "1-43.scm")
 
 (define dx 0.00001)
 (define (smooth f)
