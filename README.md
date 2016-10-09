@@ -1,3 +1,5 @@
-# SICP-exercise
-This is an answer set of SICP. I am using MIT Scheme as the environment, all codes have been tested.<br>
-I start this repository after I have finished Chapter1, so some parts of it are missing, maybe someday to fix.
+# Structure and Interpretation of Computer Programs
+This repo include my solutions to SICP exercise.
+
+# Environment
+MIT Scheme 
